@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="innovation.com.moviedatabasetest.movie.MovieActivity">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="innovation.com.moviedatabasetest.movie.MovieActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <FrameLayout
+                android:id="@+id/movieFragmentContainer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"/>
+
+            <FrameLayout
+                android:id="@+id/movieDetailContainer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/searchFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

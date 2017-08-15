@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_18sp">18sp</dimen>
+    <dimen name="horizontal_vertical_margin">16dp</dimen>
+    <dimen name="movie_detail_title_24sp">24sp</dimen>
+    <dimen name="watched_column_header">14sp</dimen>
+</resources>

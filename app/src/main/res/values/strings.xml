@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MoviesDB</string>
+    <string name="movie_list">My Movies</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="movie_image_description">Movie Image</string>
+    <string name="watched_column_header_text">Watched</string>
+    <string name="menu_search">Search</string>
+</resources>
