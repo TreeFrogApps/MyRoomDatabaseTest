@@ -14,12 +14,10 @@ public class MovieFragmentDetailPresenter extends GenericPresenter<IMovieSharedM
     private static final String TAG = MovieFragmentDetailPresenter.class.getSimpleName();
 
     private final IMovieSharedModel model;
-    private final Retrofit retrofit;
     private final FragmentManager manager;
 
-    public MovieFragmentDetailPresenter(IMovieSharedModel model, Retrofit retrofit, FragmentManager manager) {
+    public MovieFragmentDetailPresenter(IMovieSharedModel model, FragmentManager manager) {
         this.model = model;
-        this.retrofit = retrofit;
         this.manager = manager;
     }
 

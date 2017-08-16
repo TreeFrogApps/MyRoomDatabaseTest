@@ -14,7 +14,7 @@ import innovation.com.moviedatabasetest.movie.fragmentdetail.IMovieFragmentDetai
 
 @Module public class MovieFragmentDetailModule {
 
-    @Provides @FragmentScope IMovieFragmentDetailPresenter providePresenter(IMovieSharedModel model, Retrofit retrofit, FragmentManager manager) {
-        return new MovieFragmentDetailPresenter(model, retrofit, manager);
+    @Provides @FragmentScope IMovieFragmentDetailPresenter providePresenter(IMovieSharedModel model, FragmentManager manager) {
+        return new MovieFragmentDetailPresenter(model, manager);
     }
 }

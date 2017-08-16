@@ -41,13 +41,19 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
 
     }
 
-    @Override protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.movie_menu, menu);
         return true;
     }
 
+    @Override protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        return true;
+    }
+
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_search){
+        if (item.getItemId() == R.id.menuSearch) {
             // TODO - sort search
             return true;
         } else {
@@ -56,13 +62,12 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
     }
 
 
-
     @Override protected void onDestroy() {
         super.onDestroy();
         unbind(isChangingConfigurations());
     }
 
-    @Override public MovieActivityComponent getComponent(){
+    @Override public MovieActivityComponent getComponent() {
         return component;
     }
 

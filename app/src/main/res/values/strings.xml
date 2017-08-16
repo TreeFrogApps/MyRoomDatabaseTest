@@ -5,4 +5,7 @@
     <string name="movie_image_description">Movie Image</string>
     <string name="watched_column_header_text">Watched</string>
     <string name="menu_search">Search</string>
+    <string name="menu_favourites">Favourites</string>
+    <string name="menu_in_cinemas">In cinemas</string>
+    <string name="menu_popular">Popular</string>
 </resources>

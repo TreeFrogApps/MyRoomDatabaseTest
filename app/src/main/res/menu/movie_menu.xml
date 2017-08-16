@@ -5,10 +5,34 @@
 
     <item
         android:title="@string/menu_search"
-        android:id="@+id/menu_search"
+        android:id="@+id/menuSearch"
         android:icon="@android:drawable/ic_search_category_default"
         android:orderInCategory="1"
         app:showAsAction="always"
         app:actionViewClass="android.support.v7.widget.SearchView"
         tools:ignore="AlwaysShowAction"/>
+
+    <item
+        android:title="@string/menu_favourites"
+        android:id="@+id/menuFavourites"
+        android:checkable="true"
+        android:checked="true"
+        android:orderInCategory="2"
+        app:showAsAction="never"/>
+
+    <item
+        android:title="@string/menu_in_cinemas"
+        android:id="@+id/menuInCinemas"
+        android:checkable="true"
+        android:checked="true"
+        android:orderInCategory="3"
+        app:showAsAction="never"/>
+
+    <item
+        android:title="@string/menu_popular"
+        android:id="@+id/menuPopular"
+        android:checkable="true"
+        android:checked="true"
+        android:orderInCategory="3"
+        app:showAsAction="never"/>
 </menu>

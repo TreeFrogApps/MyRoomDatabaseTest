@@ -5,6 +5,7 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import innovation.com.moviedatabasetest.MovieApp;
+import innovation.com.moviedatabasetest.api.MovieApiManager;
 import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import innovation.com.moviedatabasetest.movie.MovieSharedModel;
@@ -23,7 +24,7 @@ public class MovieAppModule {
         return app;
     }
 
-    @Provides @ApplicationScope IMovieSharedModel provideModel(Context context) {
-        return new MovieSharedModel(context);
+    @Provides @ApplicationScope IMovieSharedModel provideModel(Context context, MovieApiManager apiManager) {
+        return new MovieSharedModel(context, apiManager);
     }
 }
