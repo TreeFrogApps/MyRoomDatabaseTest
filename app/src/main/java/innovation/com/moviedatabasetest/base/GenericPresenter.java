@@ -1,16 +1,7 @@
 package innovation.com.moviedatabasetest.base;
 
 
-public abstract class GenericPresenter<IModel extends IModelLifeCycle> {
+public abstract class GenericPresenter<IModel> {
 
     private IModel model;
-
-    void bind(IModel model){
-        model.bind();
-    }
-
-    void unbind(boolean isChangingConfigurations){
-        model.unbind(isChangingConfigurations);
-        model = null;
-    }
 }

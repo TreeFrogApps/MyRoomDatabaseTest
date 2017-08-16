@@ -9,8 +9,6 @@ public interface IPresenterLifeCycle<View> {
 
     void bind(View view, Unbinder unbinder);
 
-    void bind(View view);
-
     void unbind(boolean isChangingConfigurations);
 
     void unbindView();

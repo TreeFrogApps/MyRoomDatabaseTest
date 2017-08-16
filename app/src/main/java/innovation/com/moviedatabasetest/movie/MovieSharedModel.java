@@ -3,7 +3,12 @@ package innovation.com.moviedatabasetest.movie;
 
 import android.content.Context;
 
-public class MovieSharedModel implements MVP.IMovieModel {
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
+public class MovieSharedModel implements IMovieSharedModel {
 
     private final Context context;
 
@@ -11,11 +16,19 @@ public class MovieSharedModel implements MVP.IMovieModel {
         this.context = context;
     }
 
-    @Override public void bind() {
-
+    @Override public Observable<String> getMovieInfo(String movie) {
+        return null;
     }
 
-    @Override public void unbind(boolean isChangingConfigurations) {
+    @Override public Observable<List<Object>> getMovieList() {
+        return null;
+    }
 
+    @Override public Observable<List<Object>> performMovieSearch(String query) {
+        return null;
+    }
+
+    @Override public PublishSubject<String> getSearchSubject() {
+        return null;
     }
 }

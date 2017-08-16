@@ -8,12 +8,10 @@ import dagger.Module;
 import dagger.Provides;
 import innovation.com.moviedatabasetest.base.GenericActivity;
 import innovation.com.moviedatabasetest.di.scope.ActivityScope;
-import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
-import innovation.com.moviedatabasetest.movie.MVP.IMovieModel;
-import innovation.com.moviedatabasetest.movie.MovieSharedModel;
+import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import innovation.com.moviedatabasetest.movie.MoviePresenter;
 
-import static innovation.com.moviedatabasetest.movie.MVP.IMoviePresenter;
+import innovation.com.moviedatabasetest.movie.IMoviePresenter;
 
 @Module public class MovieActivityModule {
 
@@ -27,14 +25,7 @@ import static innovation.com.moviedatabasetest.movie.MVP.IMoviePresenter;
         return activity.getSupportFragmentManager();
     }
 
-    @Provides @ActivityScope IMoviePresenter providePresenter(Context context, IMovieModel model, FragmentManager manager) {
+    @Provides @ActivityScope IMoviePresenter providePresenter(Context context, IMovieSharedModel model, FragmentManager manager) {
         return new MoviePresenter(context, model, manager);
-    }
-
-    @Module public static class AppScopeModule {
-
-        @Provides @ApplicationScope IMovieModel provideModel(Context context) {
-            return new MovieSharedModel(context);
-        }
     }
 }

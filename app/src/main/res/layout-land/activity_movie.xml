@@ -25,6 +25,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="@string/app_name"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:titleTextColor="@android:color/white"/>
 
         <LinearLayout
@@ -38,11 +39,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorAccent"/>
 
             <FrameLayout
                 android:id="@+id/movieDetailContainer"

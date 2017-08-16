@@ -2,25 +2,23 @@ package innovation.com.moviedatabasetest.movie;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
 import innovation.com.moviedatabasetest.R;
 import innovation.com.moviedatabasetest.base.GenericActivity;
 import innovation.com.moviedatabasetest.di.component.MovieActivityComponent;
 import innovation.com.moviedatabasetest.di.module.MovieActivityModule;
 
 import static innovation.com.moviedatabasetest.MovieApp.getRoomAppComponent;
-import static innovation.com.moviedatabasetest.movie.MVP.*;
 
 public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, MovieActivityComponent> implements IMovieView {
+
+    private static final String TAG = MovieActivity.class.getSimpleName();
 
     private MovieActivityComponent component;
     @Inject IMoviePresenter presenter;
@@ -38,6 +36,9 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
                 R.id.searchFragmentContainer,
                 R.id.movieDetailContainer,
                 findViewById(R.id.movieDetailContainer) != null);
+
+        Log.e(TAG, "Presenter hashcode = " + presenter.hashCode());
+
     }
 
     @Override protected boolean onPrepareOptionsPanel(View view, Menu menu) {
@@ -61,7 +62,7 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
         unbind(isChangingConfigurations());
     }
 
-    @Override protected MovieActivityComponent getComponent(){
+    @Override public MovieActivityComponent getComponent(){
         return component;
     }
 

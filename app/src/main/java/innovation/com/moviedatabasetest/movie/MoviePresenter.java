@@ -4,28 +4,24 @@ import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import butterknife.Unbinder;
 import innovation.com.moviedatabasetest.base.GenericPresenter;
-import innovation.com.moviedatabasetest.movie.MVP.IMovieModel;
-import innovation.com.moviedatabasetest.movie.fragmentdetail.MovieFragmentDetail;
-import innovation.com.moviedatabasetest.movie.fragmentlist.MovieFragmentList;
-import innovation.com.moviedatabasetest.movie.fragmentsearch.MovieFragmentSearch;
-
-import static innovation.com.moviedatabasetest.movie.MVP.*;
+import innovation.com.moviedatabasetest.movie.fragmentdetail.MovieFragmentDetailView;
+import innovation.com.moviedatabasetest.movie.fragmentlist.MovieFragmentListView;
+import innovation.com.moviedatabasetest.movie.fragmentsearch.MovieFragmentSearchView;
 
 
-public class MoviePresenter extends GenericPresenter<IMovieModel> implements IMoviePresenter {
+public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implements IMoviePresenter {
 
     private final Context context;
-    private final IMovieModel model;
+    private final IMovieSharedModel model;
     private final FragmentManager manager;
 
     @Nullable private Unbinder unbinder;
     private boolean dualPane;
 
-    public MoviePresenter(Context context, IMovieModel model, FragmentManager manager) {
+    public MoviePresenter(Context context, IMovieSharedModel model, FragmentManager manager) {
         this.context = context;
         this.model = model;
         this.manager = manager;
@@ -33,15 +29,9 @@ public class MoviePresenter extends GenericPresenter<IMovieModel> implements IMo
 
     @Override public void bind(IMovieView iMovieView, Unbinder unbinder) {
         this.unbinder = unbinder;
-        model.bind();
-    }
-
-    @Override public void bind(IMovieView iMovieView) {
-
     }
 
     @Override public void unbind(boolean isChangingConfigurations) {
-        model.unbind(isChangingConfigurations);
     }
 
     @Override public void unbindView() {
@@ -50,9 +40,10 @@ public class MoviePresenter extends GenericPresenter<IMovieModel> implements IMo
 
 
     @Override public void setupView(@IdRes int movieContainer, @IdRes int searchContainer, @IdRes int detailContainer, boolean dualPane) {
-        final MovieFragmentSearch fragmentSearch = (MovieFragmentSearch) manager.findFragmentByTag(MovieFragmentSearch.class.getSimpleName());
-        final MovieFragmentDetail fragmentDetail = (MovieFragmentDetail) manager.findFragmentByTag(MovieFragmentDetail.class.getSimpleName());
-        final MovieFragmentList fragmentList = (MovieFragmentList) manager.findFragmentByTag(MovieFragmentList.class.getSimpleName());
+        this.dualPane = dualPane;
+        final MovieFragmentSearchView fragmentSearch = (MovieFragmentSearchView) manager.findFragmentByTag(MovieFragmentSearchView.class.getSimpleName());
+        final MovieFragmentDetailView fragmentDetail = (MovieFragmentDetailView) manager.findFragmentByTag(MovieFragmentDetailView.class.getSimpleName());
+        final MovieFragmentListView fragmentList = (MovieFragmentListView) manager.findFragmentByTag(MovieFragmentListView.class.getSimpleName());
 
         setupSearchFragment(searchContainer, fragmentSearch);
 
@@ -64,24 +55,24 @@ public class MoviePresenter extends GenericPresenter<IMovieModel> implements IMo
         }
     }
 
-    private void setupDetailFragment(@IdRes int detailContainer, MovieFragmentDetail fragmentDetail) {
+    private void setupDetailFragment(@IdRes int detailContainer, MovieFragmentDetailView fragmentDetail) {
         if(fragmentDetail == null){
             manager.beginTransaction().add(detailContainer,
-                    MovieFragmentDetail.newInstance(null), MovieFragmentDetail.class.getSimpleName()).commit();
+                    MovieFragmentDetailView.newInstance(null), MovieFragmentDetailView.class.getSimpleName()).commit();
         }
     }
 
-    private void setupListFragment(@IdRes int movieContainer, MovieFragmentList fragmentList) {
+    private void setupListFragment(@IdRes int movieContainer, MovieFragmentListView fragmentList) {
         if(fragmentList == null){
             manager.beginTransaction().add(movieContainer,
-                    MovieFragmentList.newInstance(null), MovieFragmentList.class.getSimpleName()).commit();
+                    MovieFragmentListView.newInstance(null), MovieFragmentListView.class.getSimpleName()).commit();
         }
     }
 
-    private void setupSearchFragment(@IdRes int searchContainer, MovieFragmentSearch fragmentSearch){
+    private void setupSearchFragment(@IdRes int searchContainer, MovieFragmentSearchView fragmentSearch){
         if(fragmentSearch == null){
             manager.beginTransaction().add(searchContainer,
-                    MovieFragmentSearch.newInstance(null), MovieFragmentSearch.class.getSimpleName()).commit();
+                    MovieFragmentSearchView.newInstance(null), MovieFragmentSearchView.class.getSimpleName()).commit();
         }
     }
 
