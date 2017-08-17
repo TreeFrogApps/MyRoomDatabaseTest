@@ -1,26 +1,25 @@
-package innovation.com.moviedatabasetest.api;
+package innovation.com.moviedatabasetest.provider.api;
 
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import innovation.com.moviedatabasetest.api.model.InCinemas;
+import innovation.com.moviedatabasetest.provider.api.model.ApiBase;
 import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 
 import static java.util.concurrent.TimeUnit.DAYS;
 
-@ApplicationScope public final class MovieApiManager {
+@ApplicationScope public final class ApiManager {
 
     private static final long FOUR_WEEKS = DAYS.toMillis(28);
     private static final int MAX_PAGE = 4;
     private final MoviesApi moviesApi;
-    private final MovieDateProvider dateProvider;
+    private final DateProvider dateProvider;
 
-    @Inject public MovieApiManager(MoviesApi moviesApi, MovieDateProvider dateProvider) {
+    @Inject public ApiManager(MoviesApi moviesApi, DateProvider dateProvider) {
         this.moviesApi = moviesApi;
         this.dateProvider = dateProvider;
     }
@@ -37,14 +36,14 @@ import static java.util.concurrent.TimeUnit.DAYS;
 //                .collect());
     }
 
-    private Observable<InCinemas> getInCinemas(String fromDate, String toDate, int page) {
+    private Observable<ApiBase> getInCinemas(String fromDate, String toDate, int page) {
         return moviesApi.getInCinemasList(fromDate, toDate, String.valueOf(page))
-                .concatMap(inCinemas -> inCinemas.hasNextPage() && page <= MAX_PAGE ?
-                        Observable.just(inCinemas).concatWith(getInCinemas(fromDate, toDate, page + 1)) :
-                        Observable.just(inCinemas));
+                .concatMap(apiBase -> apiBase.hasNextPage() && page <= MAX_PAGE ?
+                        Observable.just(apiBase).concatWith(getInCinemas(fromDate, toDate, page + 1)) :
+                        Observable.just(apiBase));
     }
 
-    private Object convertToDbObject(InCinemas inCinemas){
+    private Object convertToDbObject(ApiBase apiBase){
         return null;
         // TODO - convert to DB object - needs Room annontation .. setup gradle deps -a
     }

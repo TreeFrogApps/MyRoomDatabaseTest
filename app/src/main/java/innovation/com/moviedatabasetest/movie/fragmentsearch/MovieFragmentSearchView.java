@@ -40,7 +40,7 @@ public class MovieFragmentSearchView extends GenericFragment<IMovieFragmentSearc
     @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MovieActivity) getActivity()).getComponent().addFragmentSearchComponent(new MovieFragmentSearchModule()).inject(this);
-        bind(this, presenter, ButterKnife.bind(getView()));
+        bind(this, presenter, ButterKnife.bind(this, getView()));
     }
 
     @Override public void searchResults(List<Object> results) {

@@ -11,22 +11,22 @@ import innovation.com.moviedatabasetest.base.GenericPresenter;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import io.reactivex.Observable;
 
-public class MovieFragmentListPresenter extends GenericPresenter<IMovieSharedModel>
-        implements IMovieFragmentListPresenter {
+public class MovieFragmentPresenter extends GenericPresenter<IMovieSharedModel>
+        implements IMovieFragmentPresenter {
 
     private final IMovieSharedModel model;
     private final FragmentManager manager;
 
-    private IMovieFragmentListView view;
+    private IMovieFragment view;
     private Unbinder unbinder;
 
-    public MovieFragmentListPresenter(IMovieSharedModel model, FragmentManager manager) {
+    public MovieFragmentPresenter(IMovieSharedModel model, FragmentManager manager) {
         this.model = model;
         this.manager = manager;
     }
 
-    @Override public void bind(IMovieFragmentListView iMovieFragmentListView, Unbinder unbinder) {
-        this.view = iMovieFragmentListView;
+    @Override public void bind(IMovieFragment iMovieFragment, Unbinder unbinder) {
+        this.view = iMovieFragment;
         this.unbinder = unbinder;
     }
 

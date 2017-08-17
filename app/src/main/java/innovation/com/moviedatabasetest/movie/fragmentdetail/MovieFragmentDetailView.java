@@ -40,7 +40,7 @@ public class MovieFragmentDetailView extends GenericFragment<IMovieFragmentDetai
     @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MovieActivity) getActivity()).getComponent().addFragmentDetailComponent(new MovieFragmentDetailModule()).inject(this);
-        bind(this, presenter, ButterKnife.bind(getView()));
+        bind(this, presenter, ButterKnife.bind(this, getView()));
     }
 
     @Override public void updateMovieDetails(String title, String info, String imageUrl) {

@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import butterknife.Unbinder;
 import innovation.com.moviedatabasetest.base.GenericPresenter;
 import innovation.com.moviedatabasetest.movie.fragmentdetail.MovieFragmentDetailView;
-import innovation.com.moviedatabasetest.movie.fragmentlist.MovieFragmentListView;
+import innovation.com.moviedatabasetest.movie.fragmentlist.MovieFragment;
 import innovation.com.moviedatabasetest.movie.fragmentsearch.MovieFragmentSearchView;
 
 
@@ -43,7 +43,7 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
         this.dualPane = dualPane;
         final MovieFragmentSearchView fragmentSearch = (MovieFragmentSearchView) manager.findFragmentByTag(MovieFragmentSearchView.class.getSimpleName());
         final MovieFragmentDetailView fragmentDetail = (MovieFragmentDetailView) manager.findFragmentByTag(MovieFragmentDetailView.class.getSimpleName());
-        final MovieFragmentListView fragmentList = (MovieFragmentListView) manager.findFragmentByTag(MovieFragmentListView.class.getSimpleName());
+        final MovieFragment fragmentList = (MovieFragment) manager.findFragmentByTag(MovieFragment.class.getSimpleName());
 
         setupSearchFragment(searchContainer, fragmentSearch);
 
@@ -62,10 +62,10 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
         }
     }
 
-    private void setupListFragment(@IdRes int movieContainer, MovieFragmentListView fragmentList) {
+    private void setupListFragment(@IdRes int movieContainer, MovieFragment fragmentList) {
         if(fragmentList == null){
             manager.beginTransaction().add(movieContainer,
-                    MovieFragmentListView.newInstance(null), MovieFragmentListView.class.getSimpleName()).commit();
+                    MovieFragment.newInstance(null), MovieFragment.class.getSimpleName()).commit();
         }
     }
 

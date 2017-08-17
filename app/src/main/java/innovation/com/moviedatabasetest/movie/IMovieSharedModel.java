@@ -3,17 +3,20 @@ package innovation.com.moviedatabasetest.movie;
 
 import java.util.List;
 
+import innovation.com.moviedatabasetest.provider.db.Movie;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.subjects.PublishSubject;
 
 public interface IMovieSharedModel {
 
-    Observable<String> getMovieInfo(String movie);
+    Single<Movie> getMovieInfo(String movie);
 
-    Observable<List<Object>> getMovieList();
+    Flowable<List<Movie>> getMovieList();
 
-    Observable<List<Object>> performMovieSearch(String query);
+    void performMovieSearch(String query);
 
-    PublishSubject<String> getSearchSubject();
+    Flowable<List<Movie>> subscribeToSearchResults();
 
 }

@@ -9,8 +9,8 @@ import java.util.Date;
 
 import dagger.Module;
 import dagger.Provides;
-import innovation.com.moviedatabasetest.api.MovieDateProvider;
-import innovation.com.moviedatabasetest.api.MoviesApi;
+import innovation.com.moviedatabasetest.provider.api.DateProvider;
+import innovation.com.moviedatabasetest.provider.api.MoviesApi;
 import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
@@ -64,7 +64,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
         return retrofit.create(MoviesApi.class);
     }
 
-    @SuppressLint("SimpleDateFormat") @Provides @ApplicationScope MovieDateProvider provideDate(){
+    @SuppressLint("SimpleDateFormat") @Provides @ApplicationScope DateProvider provideDate(){
         return (now, offset) -> new SimpleDateFormat("yyyy-MM-dd").format(new Date((now - offset)));
     }
 }
