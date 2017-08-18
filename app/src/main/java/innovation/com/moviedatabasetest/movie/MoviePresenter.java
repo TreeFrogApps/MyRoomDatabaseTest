@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import butterknife.Unbinder;
 import innovation.com.moviedatabasetest.base.GenericPresenter;
 import innovation.com.moviedatabasetest.movie.fragmentdetail.MovieFragmentDetailView;
-import innovation.com.moviedatabasetest.movie.fragmentlist.MovieFragment;
+import innovation.com.moviedatabasetest.movie.fragmentpager.MovieFragment;
 import innovation.com.moviedatabasetest.movie.fragmentsearch.MovieFragmentSearchView;
 
 
@@ -29,6 +29,7 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
 
     @Override public void bind(IMovieView iMovieView, Unbinder unbinder) {
         this.unbinder = unbinder;
+        model.updateMovies();
     }
 
     @Override public void unbind(boolean isChangingConfigurations) {

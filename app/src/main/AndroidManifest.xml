@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="innovation.com.moviedatabasetest">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name="innovation.com.moviedatabasetest.MovieApp"
         android:allowBackup="true"

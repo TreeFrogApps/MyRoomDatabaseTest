@@ -1,14 +1,18 @@
 package innovation.com.moviedatabasetest.provider.api;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
-import innovation.com.moviedatabasetest.provider.api.model.ApiBase;
 import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
-import io.reactivex.Observable;
-import io.reactivex.Single;
+import innovation.com.moviedatabasetest.provider.api.model.ApiBase;
+import innovation.com.moviedatabasetest.provider.db.Movie;
+import io.reactivex.Flowable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static java.util.concurrent.TimeUnit.DAYS;
 
@@ -19,32 +23,40 @@ import static java.util.concurrent.TimeUnit.DAYS;
     private final MoviesApi moviesApi;
     private final DateProvider dateProvider;
 
-    @Inject public ApiManager(MoviesApi moviesApi, DateProvider dateProvider) {
+    @Inject ApiManager(MoviesApi moviesApi, DateProvider dateProvider) {
         this.moviesApi = moviesApi;
         this.dateProvider = dateProvider;
     }
 
-    public Single<List<Object>> getInCinemasList() {
+    public Flowable<List<Movie>> getInCinemasList() {
         final long now = System.currentTimeMillis();
         final String fromDate = dateProvider.formatDate(now, FOUR_WEEKS);
         final String toDate = dateProvider.formatDate(now, 0);
-        return null;
-//        return Observable.defer(() -> getInCinemas(fromDate, toDate, 1)
-//                .subscribeOn(Schedulers.io())
-//                .map()
-//                .doOnNext() //TODO - save to DB using Room - read docs NOW!!
-//                .collect());
+        return Flowable.defer(() -> getInCinemas(fromDate, toDate, 1)
+                .subscribeOn(Schedulers.io())
+                .collect(ArrayList<Movie>::new, (movies, apiBase) -> movies.addAll(apiBase.getMovieList()))
+                .toFlowable());
     }
 
-    private Observable<ApiBase> getInCinemas(String fromDate, String toDate, int page) {
+    private Flowable<ApiBase> getInCinemas(String fromDate, String toDate, int page) {
         return moviesApi.getInCinemasList(fromDate, toDate, String.valueOf(page))
                 .concatMap(apiBase -> apiBase.hasNextPage() && page <= MAX_PAGE ?
-                        Observable.just(apiBase).concatWith(getInCinemas(fromDate, toDate, page + 1)) :
-                        Observable.just(apiBase));
+                        Flowable.just(apiBase).concatWith(getInCinemas(fromDate, toDate, page + 1)) :
+                        Flowable.just(apiBase));
     }
 
-    private Object convertToDbObject(ApiBase apiBase){
-        return null;
-        // TODO - convert to DB object - needs Room annontation .. setup gradle deps -a
+    public Flowable<List<Movie>> getPopularList() {
+        return Flowable.defer(() -> getPopular(1)
+                .subscribeOn(Schedulers.io())
+                .collect(ArrayList<Movie>::new, (movies, apiBase) -> movies.addAll(apiBase.getMovieList()))
+                .toFlowable());
     }
+
+    private Flowable<ApiBase> getPopular(int page) {
+        return moviesApi.getPopularList(String.valueOf(page))
+                .concatMap(apiBase -> apiBase.hasNextPage() && page <= MAX_PAGE ?
+                        Flowable.just(apiBase).concatWith(getPopular(page + 1)) :
+                        Flowable.just(apiBase));
+    }
+
 }

@@ -26,9 +26,9 @@ import static innovation.com.moviedatabasetest.provider.db.Movie.TITLE;
     Flowable<List<Movie>> getAll();
 
     @Query("SELECT * FROM " + MOVIES_TABLE +  " " +
-            "WHERE " + MOVIE_ID + " " +
-            "IN (:movieIds)")
-    Single<List<Movie>> getByMovieIds(int[] movieIds);
+            "WHERE " + MOVIE_ID + "=" +
+            ":movieId")
+    Single<Movie> getByMovieId(long movieId);
 
     @Query("SELECT * FROM " + MOVIES_TABLE + " " +
             "WHERE " + TITLE + " " +
@@ -50,13 +50,17 @@ import static innovation.com.moviedatabasetest.provider.db.Movie.TITLE;
     void insert(Movie movie);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertMulti(Movie... movies);
+    void insertMulti(List<Movie> movies);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateMovies(Movie... movies);
+    void updateMovies(List<Movie> movies);
 
     @Delete void delete(Movie... movies);
 
     @Query("DELETE FROM " + MOVIES_TABLE)
     void deleteAll();
+
+    @Query("DELETE FROM " + MOVIES_TABLE + " " +
+            "WHERE " + IS_FAVOURITE + "=0")
+    void deleteNonFavourites();
 }

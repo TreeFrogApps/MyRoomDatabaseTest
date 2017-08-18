@@ -36,9 +36,6 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
                 R.id.searchFragmentContainer,
                 R.id.movieDetailContainer,
                 findViewById(R.id.movieDetailContainer) != null);
-
-        Log.e(TAG, "Presenter hashcode = " + presenter.hashCode());
-
     }
 
 

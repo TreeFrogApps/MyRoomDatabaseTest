@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity(tableName = "movies_table", indices = {@Index(value = {"movie_id", "movie_type"}, unique = true)})
 public class Movie {
 
-    enum MovieType {
+    public enum MovieType {
         INCINEMAS, POPULAR
     }
 
@@ -29,37 +29,40 @@ public class Movie {
 
     private static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w500";
 
+    public Movie() {
+    }
+
     @PrimaryKey()
-    String rowid;
+    public String rowid;
 
     @JsonProperty("id")
     @ColumnInfo(name = MOVIE_ID)
-    long movieId;
+    public long movieId;
 
     @JsonProperty(VOTE_AVERAGE)
     @ColumnInfo(name = VOTE_AVERAGE)
-    double voteScore;
+    public double voteScore;
 
     @JsonProperty(TITLE)
     @ColumnInfo(name = TITLE)
-    String title;
+    public String title;
 
     @JsonProperty(RELEASE_DATE)
     @ColumnInfo(name = RELEASE_DATE)
-    String releaseDate;
+    public String releaseDate;
 
     @JsonProperty(OVERVIEW)
     @ColumnInfo(name = OVERVIEW)
-    String movieOverview;
+    public String movieOverview;
 
     @JsonProperty(POSTER_PATH)
     @ColumnInfo(name = POSTER_PATH)
-    String posterPath;
+    public String posterPath;
 
     @ColumnInfo(name = IS_FAVOURITE)
-    boolean isFavourite;
+    public boolean isFavourite = false;
 
     @ColumnInfo(name = MOVIE_TYPE)
-    String movieType;
+    public String movieType;
 
 }

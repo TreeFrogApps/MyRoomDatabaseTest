@@ -8,9 +8,12 @@
     <string name="menu_favourites">Favourites</string>
     <string name="menu_in_cinemas">In cinemas</string>
     <string name="menu_popular">Popular</string>
+    <string name="release_date">Release Date</string>
+    <string name="menu_add_to_favourites">Add to Favourites</string>
+    <string name="menu_remove_favourite">Remove Favourite</string>
 
     <string-array name="item_titles">
-        <item>All movies</item>
+        <item>Popular Movies</item>
         <item>In Cinemas</item>
         <item>Favourites</item>
     </string-array>

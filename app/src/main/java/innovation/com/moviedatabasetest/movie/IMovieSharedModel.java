@@ -11,12 +11,16 @@ import io.reactivex.subjects.PublishSubject;
 
 public interface IMovieSharedModel {
 
-    Single<Movie> getMovieInfo(String movie);
+    Single<Movie> getMovie(long movieId);
 
-    Flowable<List<Movie>> getMovieList();
+    Flowable<List<Movie>> getMovieList(int id);
+
+    void updateMovies();
 
     void performMovieSearch(String query);
 
     Flowable<List<Movie>> subscribeToSearchResults();
+
+    void updateMovie(Movie movie);
 
 }

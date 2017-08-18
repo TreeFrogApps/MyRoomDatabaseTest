@@ -1,10 +1,9 @@
-package innovation.com.moviedatabasetest.movie.fragmentlist;
+package innovation.com.moviedatabasetest.movie.fragmentpager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import innovation.com.moviedatabasetest.R;
 import innovation.com.moviedatabasetest.base.GenericFragment;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentModule;
 import innovation.com.moviedatabasetest.movie.MovieActivity;
+import innovation.com.moviedatabasetest.provider.db.Movie;
 
 
 public class MovieFragment extends GenericFragment<IMovieFragment, IMovieFragmentPresenter>
@@ -50,21 +50,6 @@ public class MovieFragment extends GenericFragment<IMovieFragment, IMovieFragmen
         super.onActivityCreated(savedInstanceState);
         ((MovieActivity) getActivity()).getComponent().addFragmentComponent(new MovieFragmentModule(this)).inject(this);
         bind(this, presenter, ButterKnife.bind(this, getView()));
-        setupView();
-    }
-
-
-    // TODO - hook into api and database
-    // TODO - complete rxchain / chains in MovieProvider
-    // TODO - recycleradapters
-    // TODO - recycler row butoon add to favourites - popular/in cinemas - remove favourite: favourites list
-    // TODO - implement search fragment .... connect to api - insert/update adding as favourite to favourites?
-    @Override public void movieList(List<String> movies) {
-
-    }
-
-    private void setupView() {
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(pagerAdapter);
+        presenter.setupView(pagerAdapter, tabLayout, viewPager);
     }
 }

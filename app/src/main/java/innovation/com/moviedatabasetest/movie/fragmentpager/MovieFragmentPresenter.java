@@ -1,7 +1,9 @@
-package innovation.com.moviedatabasetest.movie.fragmentlist;
+package innovation.com.moviedatabasetest.movie.fragmentpager;
 
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +13,14 @@ import innovation.com.moviedatabasetest.base.GenericPresenter;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import io.reactivex.Observable;
 
-public class MovieFragmentPresenter extends GenericPresenter<IMovieSharedModel>
-        implements IMovieFragmentPresenter {
+public class MovieFragmentPresenter implements IMovieFragmentPresenter {
 
-    private final IMovieSharedModel model;
     private final FragmentManager manager;
 
     private IMovieFragment view;
     private Unbinder unbinder;
 
-    public MovieFragmentPresenter(IMovieSharedModel model, FragmentManager manager) {
-        this.model = model;
+    public MovieFragmentPresenter(FragmentManager manager) {
         this.manager = manager;
     }
 
@@ -40,9 +39,8 @@ public class MovieFragmentPresenter extends GenericPresenter<IMovieSharedModel>
         }
     }
 
-    @Override public Observable<List<String>> getMovieList() {
-        //TODO - get list from DB
-        view.movieList(new ArrayList<>());
-        return null;
+    @Override public void setupView(MoviePagerAdapter adapter, TabLayout tabLayout, ViewPager pager) {
+        tabLayout.setupWithViewPager(pager);
+        pager.setAdapter(adapter);
     }
 }

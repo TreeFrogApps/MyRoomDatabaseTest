@@ -28,7 +28,7 @@
                 android:lines="1"
                 android:maxLines="1"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/movie_detail_title_24sp"
+                android:textSize="@dimen/movie_detail_title_36sp"
                 android:textStyle="bold"
                 tools:text="Title"/>
 
@@ -40,11 +40,10 @@
                 android:gravity="end"
                 android:lines="1"
                 android:maxLines="1"
-                android:textSize="14sp"
+                android:textSize="@dimen/movie_detail_title_24sp"
                 tools:text="Subtitle"/>
 
             <TextView
-                android:id="@+id/movieDetailYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/horizontal_vertical_margin"
@@ -52,15 +51,28 @@
                 android:gravity="end"
                 android:lines="1"
                 android:maxLines="1"
+                android:textStyle="italic"
                 android:textSize="14sp"
-                tools:text="Year"/>
+                android:text="@string/release_date"/>
+
+            <TextView
+                android:id="@+id/movieDetailReleaseDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:lines="1"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:textSize="14sp"
+                tools:text="12/08/2017r"/>
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/movieDetailImage"
-            android:layout_width="92dp"
-            android:layout_height="124dp"
+            android:layout_width="164dp"
+            android:layout_height="204dp"
             android:layout_gravity="end"
             android:contentDescription="@string/movie_image_description"/>
 

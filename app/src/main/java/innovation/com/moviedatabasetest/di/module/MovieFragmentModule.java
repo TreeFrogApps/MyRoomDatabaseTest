@@ -7,12 +7,14 @@ import android.support.v4.app.FragmentManager;
 
 import dagger.Module;
 import dagger.Provides;
-import innovation.com.moviedatabasetest.base.GenericActivity;
 import innovation.com.moviedatabasetest.di.scope.FragmentScope;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
-import innovation.com.moviedatabasetest.movie.fragmentlist.IMovieFragmentPresenter;
-import innovation.com.moviedatabasetest.movie.fragmentlist.MovieFragmentPresenter;
-import innovation.com.moviedatabasetest.movie.fragmentlist.MoviePagerAdapter;
+import innovation.com.moviedatabasetest.movie.fragmentpager.IMovieFragmentPresenter;
+import innovation.com.moviedatabasetest.movie.fragmentpager.MovieFragmentPresenter;
+import innovation.com.moviedatabasetest.movie.fragmentpager.MoviePagerAdapter;
+import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.IMovieFragmentItemsPresenter;
+import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.MovieFragmentItemsPresenter;
+import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.MovieRecyclerAdapter;
 
 @Module public class MovieFragmentModule {
 
@@ -23,7 +25,11 @@ import innovation.com.moviedatabasetest.movie.fragmentlist.MoviePagerAdapter;
     }
 
     @Provides @FragmentScope IMovieFragmentPresenter providePresenter(IMovieSharedModel model, FragmentManager manager) {
-        return new MovieFragmentPresenter(model, manager);
+        return new MovieFragmentPresenter(manager);
+    }
+
+    @Provides @FragmentScope IMovieFragmentItemsPresenter provideItemsPresenter(IMovieSharedModel model, FragmentManager manager) {
+        return new MovieFragmentItemsPresenter(model, manager);
     }
 
     @Provides @FragmentScope MoviePagerAdapter providePagerAdapter(Context context){

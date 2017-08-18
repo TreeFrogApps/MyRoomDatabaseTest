@@ -3,32 +3,66 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:weightSum="4">
+              android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/recyclerRowId"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:orientation="horizontal"
+        android:weightSum="4">
 
-    <TextView
-        android:id="@+id/recyclerRowMovieTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/horizontal_vertical_margin"
-        android:layout_weight="3"
-        android:layout_gravity="center_vertical"
-        android:textSize="@dimen/title_18sp"
-        tools:text="Movie Title"/>
+        <TextView
+            android:id="@+id/recyclerRowId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
-    <CheckBox
-        android:id="@+id/recyclerRowWatchedCheckBox"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/recyclerRowMovieTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/horizontal_vertical_margin"
+            android:layout_weight="3"
+            android:textSize="@dimen/title_18sp"
+            tools:text="Movie Title"/>
 
+        <CheckBox
+            android:id="@+id/recyclerRowFavouriteCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical|end">
+
+            <ImageView
+                android:id="@+id/recyclerRowMenuButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="@drawable/dots_selector"
+                android:layout_marginRight="@dimen/horizontal_vertical_margin"
+                tools:ignore="RtlHardcoded"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/horizontal_vertical_margin"
+        android:background="@color/greyStroke"
+        tools:ignore="RtlHardcoded"/>
 
 
 </LinearLayout>

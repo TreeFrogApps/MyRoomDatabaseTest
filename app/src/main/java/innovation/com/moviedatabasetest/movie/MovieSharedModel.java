@@ -11,11 +11,8 @@ import innovation.com.moviedatabasetest.provider.MovieProvider;
 import innovation.com.moviedatabasetest.provider.db.Movie;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Single;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
@@ -36,15 +33,31 @@ public class MovieSharedModel implements IMovieSharedModel {
         searchSubject = PublishSubject.create();
     }
 
-    @Override public Single<Movie> getMovieInfo(String movie) {
-        return Single.defer(() -> movieProvider.getMovieInfo(movie))
+    @Override public Single<Movie> getMovie(long movieId) {
+        return Single.defer(() -> movieProvider.getMovieInfo(movieId))
                 .subscribeOn(Schedulers.io());
     }
 
-    @Override public Flowable<List<Movie>> getMovieList() {
+    @Override public Flowable<List<Movie>> getMovieList(int id) {
+        final Flowable<List<Movie>> moviesFlowable;
+        switch (id) {
+            case 0:
+                moviesFlowable = movieProvider.getPopular();
+                break;
+            case 1:
+                moviesFlowable = movieProvider.getInCinemas();
+                break;
+            default:
+                moviesFlowable = movieProvider.getFavourites();
+                break;
+        }
+        return moviesFlowable.observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    @Override public void updateMovies() {
         long lastUpdate = preferences.getLong(PreferenceConstants.MOVIES_LAST_API_UPDATE, 0L);
-        return Flowable.defer(() -> movieProvider.getMovieList(lastUpdate))
-                .subscribeOn(Schedulers.io());
+        movieProvider.updateMovies(preferences, lastUpdate);
     }
 
     @Override public void performMovieSearch(String query) {
@@ -56,5 +69,9 @@ public class MovieSharedModel implements IMovieSharedModel {
                 .switchMapSingle(movieProvider::performMovieSearch)
                 .toFlowable(BackpressureStrategy.BUFFER)
                 .subscribeOn(Schedulers.io());
+    }
+
+    @Override public void updateMovie(Movie movie) {
+        movieProvider.updateMovie(movie);
     }
 }

@@ -1,4 +1,4 @@
-package innovation.com.moviedatabasetest.movie.fragmentlist;
+package innovation.com.moviedatabasetest.movie.fragmentpager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import innovation.com.moviedatabasetest.R;
+import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.MovieItemsFragment;
 
 
 public final class MoviePagerAdapter extends FragmentStatePagerAdapter {
