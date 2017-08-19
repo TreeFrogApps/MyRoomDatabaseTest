@@ -29,6 +29,7 @@ public class MovieFragmentDetailView extends GenericFragment<IMovieFragmentDetai
 
     @Inject IMovieFragmentDetailPresenter presenter;
     @BindView(R.id.movieDetailTitle) TextView title;
+    @BindView(R.id.movieDetailSubtitle) TextView subtitle;
     @BindView(R.id.movieDetailMainText) TextView movieDetails;
     @BindView(R.id.movieDetailReleaseDate) TextView releaseDate;
     @BindView(R.id.movieDetailImage) ImageView movieImage;
@@ -53,13 +54,12 @@ public class MovieFragmentDetailView extends GenericFragment<IMovieFragmentDetai
         ((MovieActivity) getActivity()).getComponent().addFragmentDetailComponent(new MovieFragmentDetailModule()).inject(this);
         if(getArguments() != null) rowId = getArguments().getLong(DETAIL_FRAGMENT_ROW_ID_KEY, -1);
         bind(this, presenter, ButterKnife.bind(this, getView()));
-        if(rowId != -1){
-            presenter.movieDetailRequest(rowId);
-        }
+        presenter.subscribeToUpdates();
     }
 
     @Override public void updateMovieDetails(Movie movie) {
         title.setText(movie.title);
+        subtitle.setText(String.valueOf(movie.voteScore));
         movieDetails.setText(movie.movieOverview);
         releaseDate.setText(movie.releaseDate);
         Glide.with(getActivity())

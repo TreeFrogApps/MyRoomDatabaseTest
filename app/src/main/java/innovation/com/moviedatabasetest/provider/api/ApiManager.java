@@ -3,7 +3,6 @@ package innovation.com.moviedatabasetest.provider.api;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
@@ -11,7 +10,6 @@ import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
 import innovation.com.moviedatabasetest.provider.api.model.ApiBase;
 import innovation.com.moviedatabasetest.provider.db.Movie;
 import io.reactivex.Flowable;
-import io.reactivex.functions.BiConsumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static java.util.concurrent.TimeUnit.DAYS;
@@ -19,7 +17,7 @@ import static java.util.concurrent.TimeUnit.DAYS;
 @ApplicationScope public final class ApiManager {
 
     private static final long FOUR_WEEKS = DAYS.toMillis(28);
-    private static final int MAX_PAGE = 4;
+    private static final int MAX_PAGE = 6;
     private final MoviesApi moviesApi;
     private final DateProvider dateProvider;
 

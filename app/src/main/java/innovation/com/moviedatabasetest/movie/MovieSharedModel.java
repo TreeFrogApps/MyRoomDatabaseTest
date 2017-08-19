@@ -11,9 +11,11 @@ import innovation.com.moviedatabasetest.provider.MovieProvider;
 import innovation.com.moviedatabasetest.provider.db.Movie;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -25,12 +27,15 @@ public class MovieSharedModel implements IMovieSharedModel {
     private final SharedPreferences preferences;
 
     private PublishSubject<String> searchSubject;
+    private BehaviorSubject<Movie> detailMovieSubject;
+    private boolean isDualPane;
 
     public MovieSharedModel(Context context, MovieProvider movieProvider, SharedPreferences preferences) {
         this.context = context;
         this.movieProvider = movieProvider;
         this.preferences = preferences;
         searchSubject = PublishSubject.create();
+        detailMovieSubject = BehaviorSubject.create();
     }
 
     @Override public Single<Movie> getMovie(long rowId) {
@@ -73,5 +78,21 @@ public class MovieSharedModel implements IMovieSharedModel {
 
     @Override public void updateMovie(Movie movie) {
         movieProvider.updateMovie(movie);
+    }
+
+    @Override public Observable<Movie> subscribeDetailMovie() {
+        return detailMovieSubject;
+    }
+
+    @Override public void updateDetailMovie(Movie movie) {
+        detailMovieSubject.onNext(movie);
+    }
+
+    @Override public void setDualPane(boolean isDualPane) {
+        this.isDualPane = isDualPane;
+    }
+
+    @Override public boolean isDualPane() {
+        return isDualPane;
     }
 }

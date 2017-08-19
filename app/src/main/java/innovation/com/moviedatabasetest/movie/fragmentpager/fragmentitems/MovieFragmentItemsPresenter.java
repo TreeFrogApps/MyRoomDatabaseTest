@@ -2,7 +2,6 @@ package innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems;
 
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +19,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-
-import static innovation.com.moviedatabasetest.movie.fragmentdetail.MovieFragmentDetailView.DETAIL_FRAGMENT_ROW_ID_KEY;
 
 public class MovieFragmentItemsPresenter extends GenericPresenter<IMovieSharedModel>
         implements IMovieFragmentItemsPresenter {
@@ -70,7 +67,7 @@ public class MovieFragmentItemsPresenter extends GenericPresenter<IMovieSharedMo
                 .subscribe(this::onNextMovies, this::onError));
 
         movieDisposable.add(adapter.movieClickedObservable()
-        .subscribe(this::openDetailFragment, this::onError));
+                .subscribe(this::openDetailFragment, this::onError));
     }
 
     @Override public Single<Movie> getMovie(long movieId) {
@@ -85,19 +82,24 @@ public class MovieFragmentItemsPresenter extends GenericPresenter<IMovieSharedMo
         Log.e(TAG, "Error : " + e);
     }
 
-    private void openDetailFragment(Movie movie){
-        final MovieFragmentDetailView fragment = (MovieFragmentDetailView) manager.findFragmentById(R.id.movieDetailContainer);
-        final Bundle bundle = new Bundle(1);
-        bundle.putLong(DETAIL_FRAGMENT_ROW_ID_KEY, movie.rowid);
-        if(fragment != null){
-            fragment.setArguments(bundle);
-            fragment.updateMovieDetails(movie);
-        } else {
-            manager.beginTransaction()
-                    .setCustomAnimations(R.anim.fragment_slide_enter, R.anim.fragment_fade_exit)
-                    .replace(R.id.movieFragmentContainer, MovieFragmentDetailView.newInstance(bundle))
-                    .addToBackStack(null)
-                    .commit();
+    private void openDetailFragment(Movie movie) {
+        model.updateDetailMovie(movie);
+        final String tag = MovieFragmentDetailView.class.getSimpleName();
+        MovieFragmentDetailView fragment = (MovieFragmentDetailView) manager.findFragmentByTag(tag);
+
+        if (fragment == null) {
+            fragment = MovieFragmentDetailView.newInstance(null);
+            if (model.isDualPane()) {
+                manager.beginTransaction()
+                        .setCustomAnimations(R.anim.fragment_slide_enter, R.anim.fragment_fade_exit)
+                        .replace(R.id.movieDetailContainer, fragment, tag).commit();
+            } else {
+                manager.beginTransaction()
+                        .setCustomAnimations(R.anim.fragment_slide_enter, R.anim.fragment_fade_exit)
+                        .replace(R.id.movieFragmentContainer, fragment, tag).addToBackStack(null).commit();
+            }
         }
     }
+
 }
+

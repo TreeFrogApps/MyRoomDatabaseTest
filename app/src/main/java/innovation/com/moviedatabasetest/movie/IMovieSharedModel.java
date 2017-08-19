@@ -5,6 +5,7 @@ import java.util.List;
 
 import innovation.com.moviedatabasetest.provider.db.Movie;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public interface IMovieSharedModel {
@@ -20,5 +21,13 @@ public interface IMovieSharedModel {
     Flowable<List<Movie>> subscribeToSearchResults();
 
     void updateMovie(Movie movie);
+
+    Observable<Movie> subscribeDetailMovie();
+
+    void updateDetailMovie(Movie movie);
+
+    void setDualPane(boolean isDualPane);
+
+    boolean isDualPane();
 
 }
