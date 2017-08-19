@@ -37,8 +37,8 @@ import static java.util.concurrent.TimeUnit.DAYS;
         this.date = date;
     }
 
-    public Single<Movie> getMovieInfo(long movieId) {
-        return Single.defer(() -> dBManager.getByMovieId(movieId));
+    public Single<Movie> getMovie(long rowId) {
+        return Single.defer(() -> dBManager.getByRowId(rowId));
     }
 
     public void updateMovies(SharedPreferences preferences, long lastUpdate) {
@@ -56,7 +56,7 @@ import static java.util.concurrent.TimeUnit.DAYS;
     }
 
     public Flowable<List<Movie>> getInCinemas() {
-        return dBManager.getByMovieType(Movie.MovieType.INCINEMAS)
+        return dBManager.getByMovieType(Movie.MovieType.IN_CINEMAS)
                 .subscribeOn(Schedulers.io());
     }
 
@@ -83,7 +83,7 @@ import static java.util.concurrent.TimeUnit.DAYS;
         return apiManager.getInCinemasList()
                 .map(movieList -> {
                     for (Movie m : movieList) {
-                        m.movieType = Movie.MovieType.INCINEMAS.name();
+                        m.movieType = Movie.MovieType.IN_CINEMAS.name();
                     }
                     return movieList;
                 });

@@ -33,8 +33,8 @@ public class MovieSharedModel implements IMovieSharedModel {
         searchSubject = PublishSubject.create();
     }
 
-    @Override public Single<Movie> getMovie(long movieId) {
-        return Single.defer(() -> movieProvider.getMovieInfo(movieId))
+    @Override public Single<Movie> getMovie(long rowId) {
+        return Single.defer(() -> movieProvider.getMovie(rowId))
                 .subscribeOn(Schedulers.io());
     }
 

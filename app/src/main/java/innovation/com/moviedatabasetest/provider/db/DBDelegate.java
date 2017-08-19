@@ -2,6 +2,7 @@ package innovation.com.moviedatabasetest.provider.db;
 
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
@@ -13,17 +14,19 @@ import io.reactivex.Single;
 @ApplicationScope public final class DBDelegate {
 
     private final MovieDAO movieDAO;
+    private final Executor dbExecutor;
 
-    @Inject DBDelegate(MovieDatabase movieDatabase) {
+    @Inject DBDelegate(MovieDatabase movieDatabase, Executor dbExecutor) {
         this.movieDAO = movieDatabase.movieDAO();
+        this.dbExecutor = dbExecutor;
     }
 
     public Flowable<List<Movie>> getAll() {
         return movieDAO.getAll();
     }
 
-    public Single<Movie> getByMovieId(long movieId) {
-        return movieDAO.getByMovieId(movieId);
+    public Single<Movie> getByRowId(long rowId) {
+        return movieDAO.getByRowId(rowId);
     }
 
     public Single<List<Movie>> searchByMovieName(String query) {
@@ -39,7 +42,7 @@ import io.reactivex.Single;
     }
 
     public void insert(Movie movie) {
-        movieDAO.insert(movie);
+        dbExecutor.execute(() -> movieDAO.insert(movie));
     }
 
     public void insertMulti(List<Movie> movies) {
@@ -47,11 +50,11 @@ import io.reactivex.Single;
     }
 
     public void updateMovies(List<Movie> movies) {
-        movieDAO.updateMovies(movies);
+        dbExecutor.execute(() -> movieDAO.updateMovies(movies));
     }
 
     public void delete(Movie... movies) {
-        movieDAO.delete(movies);
+        dbExecutor.execute(() -> movieDAO.delete(movies));
     }
 
     public void deleteNonFavourites() {
@@ -59,6 +62,6 @@ import io.reactivex.Single;
     }
 
     public void deleteAll() {
-        movieDAO.deleteAll();
+        dbExecutor.execute(movieDAO::deleteAll);
     }
 }

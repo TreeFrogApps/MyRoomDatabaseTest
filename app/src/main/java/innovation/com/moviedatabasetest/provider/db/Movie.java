@@ -14,11 +14,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Movie {
 
     public enum MovieType {
-        INCINEMAS, POPULAR
+        IN_CINEMAS, POPULAR
     }
 
     static final String MOVIES_TABLE = "movies_table";
     static final String MOVIE_TYPE = "movie_type";
+    static final String ROW_ID = "rowid";
     static final String MOVIE_ID = "movie_id";
     static final String VOTE_AVERAGE = "vote_average";
     static final String TITLE = "title";
@@ -32,8 +33,8 @@ public class Movie {
     public Movie() {
     }
 
-    @PrimaryKey()
-    public String rowid;
+    @PrimaryKey(autoGenerate = true)
+    public long rowid;
 
     @JsonProperty("id")
     @ColumnInfo(name = MOVIE_ID)
@@ -57,12 +58,16 @@ public class Movie {
 
     @JsonProperty(POSTER_PATH)
     @ColumnInfo(name = POSTER_PATH)
-    public String posterPath;
+    public String posterPath = "";
 
     @ColumnInfo(name = IS_FAVOURITE)
     public boolean isFavourite = false;
 
     @ColumnInfo(name = MOVIE_TYPE)
     public String movieType;
+
+    public String getAppendedPosterPath(){
+        return POSTER_BASE_URL + posterPath;
+    }
 
 }

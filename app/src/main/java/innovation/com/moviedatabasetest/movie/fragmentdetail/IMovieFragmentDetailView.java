@@ -1,7 +1,9 @@
 package innovation.com.moviedatabasetest.movie.fragmentdetail;
 
 
+import innovation.com.moviedatabasetest.provider.db.Movie;
+
 public interface IMovieFragmentDetailView {
 
-    void updateMovieDetails(String title, String info, String imageUrl);
+    void updateMovieDetails(Movie movie);
 }

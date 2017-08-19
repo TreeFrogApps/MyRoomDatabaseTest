@@ -15,20 +15,20 @@ import io.reactivex.Single;
 
 import static innovation.com.moviedatabasetest.provider.db.Movie.IS_FAVOURITE;
 import static innovation.com.moviedatabasetest.provider.db.Movie.MOVIES_TABLE;
-import static innovation.com.moviedatabasetest.provider.db.Movie.MOVIE_ID;
 import static innovation.com.moviedatabasetest.provider.db.Movie.MOVIE_TYPE;
+import static innovation.com.moviedatabasetest.provider.db.Movie.ROW_ID;
 import static innovation.com.moviedatabasetest.provider.db.Movie.TITLE;
 
 
-@Dao public interface MovieDAO {
+@Dao interface MovieDAO {
 
     @Query("SELECT * FROM " + MOVIES_TABLE)
     Flowable<List<Movie>> getAll();
 
     @Query("SELECT * FROM " + MOVIES_TABLE +  " " +
-            "WHERE " + MOVIE_ID + "=" +
-            ":movieId")
-    Single<Movie> getByMovieId(long movieId);
+            "WHERE " + ROW_ID + "=" +
+            ":rowId")
+    Single<Movie> getByRowId(long rowId);
 
     @Query("SELECT * FROM " + MOVIES_TABLE + " " +
             "WHERE " + TITLE + " " +

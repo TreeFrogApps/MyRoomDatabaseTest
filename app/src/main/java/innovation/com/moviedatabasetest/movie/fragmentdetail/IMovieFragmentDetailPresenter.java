@@ -5,5 +5,5 @@ import innovation.com.moviedatabasetest.base.IPresenterLifeCycle;
 
 public interface IMovieFragmentDetailPresenter extends IPresenterLifeCycle<IMovieFragmentDetailView> {
 
-    void movieDetailRequest(String movieId);
+    void movieDetailRequest(long rowId);
 }

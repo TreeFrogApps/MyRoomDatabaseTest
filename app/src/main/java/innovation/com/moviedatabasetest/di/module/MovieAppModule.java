@@ -1,10 +1,10 @@
 package innovation.com.moviedatabasetest.di.module;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.prefs.Preferences;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,8 +14,6 @@ import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import innovation.com.moviedatabasetest.movie.MovieSharedModel;
 import innovation.com.moviedatabasetest.provider.MovieProvider;
-import innovation.com.moviedatabasetest.provider.api.ApiManager;
-import innovation.com.moviedatabasetest.provider.db.MovieDatabase;
 
 @Module(includes = {
         MovieNetModule.class,
@@ -43,5 +41,9 @@ public class MovieAppModule {
 
     @Provides @ApplicationScope IMovieSharedModel provideModel(Context context, MovieProvider movieProvider, SharedPreferences preferences) {
         return new MovieSharedModel(context, movieProvider, preferences);
+    }
+
+    @Provides @ApplicationScope Executor provideExecutor(){
+        return Executors.newSingleThreadExecutor();
     }
 }
