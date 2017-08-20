@@ -12,6 +12,7 @@
     <string name="menu_add_to_favourites">Add to Favourites</string>
     <string name="menu_remove_favourite">Remove Favourite</string>
     <string name="vote_score">vote score</string>
+    <string name="search_results">Results</string>
 
     <string-array name="item_titles">
         <item>Popular Movies</item>

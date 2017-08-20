@@ -9,7 +9,6 @@ import java.util.List;
 import innovation.com.moviedatabasetest.common.PreferenceConstants;
 import innovation.com.moviedatabasetest.provider.MovieProvider;
 import innovation.com.moviedatabasetest.provider.db.Movie;
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -29,6 +28,7 @@ public class MovieSharedModel implements IMovieSharedModel {
     private PublishSubject<String> searchSubject;
     private BehaviorSubject<Movie> detailMovieSubject;
     private boolean isDualPane;
+    private boolean isSearching;
 
     public MovieSharedModel(Context context, MovieProvider movieProvider, SharedPreferences preferences) {
         this.context = context;
@@ -69,15 +69,18 @@ public class MovieSharedModel implements IMovieSharedModel {
         searchSubject.onNext(query);
     }
 
-    @Override public Flowable<List<Movie>> subscribeToSearchResults() {
-        return searchSubject.debounce(400, MILLISECONDS)
-                .switchMapSingle(movieProvider::performMovieSearch)
-                .toFlowable(BackpressureStrategy.BUFFER)
+    @Override public Observable<List<Movie>> subscribeToSearchResults() {
+        return searchSubject.debounce(1000, MILLISECONDS)
+                .switchMap(s -> movieProvider.performMovieSearch(s).toObservable())
                 .subscribeOn(Schedulers.io());
     }
 
     @Override public void updateMovie(Movie movie) {
         movieProvider.updateMovie(movie);
+    }
+
+    @Override public void insertMovie(Movie movie) {
+        movieProvider.insertMovie(movie);
     }
 
     @Override public Observable<Movie> subscribeDetailMovie() {
@@ -94,5 +97,13 @@ public class MovieSharedModel implements IMovieSharedModel {
 
     @Override public boolean isDualPane() {
         return isDualPane;
+    }
+
+    @Override public boolean isSearching() {
+        return isSearching;
+    }
+
+    @Override public void setSearching(boolean isSearching) {
+        this.isSearching = isSearching;
     }
 }

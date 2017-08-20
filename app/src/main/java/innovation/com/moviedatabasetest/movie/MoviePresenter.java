@@ -4,12 +4,17 @@ import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.SearchView;
+import android.widget.FrameLayout;
 
 import butterknife.Unbinder;
 import innovation.com.moviedatabasetest.base.GenericPresenter;
 import innovation.com.moviedatabasetest.movie.fragmentdetail.MovieFragmentDetailView;
 import innovation.com.moviedatabasetest.movie.fragmentpager.MovieFragment;
 import innovation.com.moviedatabasetest.movie.fragmentsearch.MovieFragmentSearchView;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
 public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implements IMoviePresenter {
@@ -40,7 +45,7 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
     }
 
 
-    @Override public void setupView(@IdRes int movieContainer, @IdRes int searchContainer, @IdRes int detailContainer, boolean dualPane) {
+    @Override public void setupView(FrameLayout searchLayout, @IdRes int movieContainer, @IdRes int searchContainer, @IdRes int detailContainer, boolean dualPane) {
         model.setDualPane(dualPane);
         final MovieFragmentSearchView fragmentSearch = (MovieFragmentSearchView) manager.findFragmentByTag(MovieFragmentSearchView.class.getSimpleName());
         final MovieFragment fragmentList = (MovieFragment) manager.findFragmentByTag(MovieFragment.class.getSimpleName());
@@ -48,6 +53,31 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
 
         setupSearchFragment(searchContainer, fragmentSearch);
         setupFragmentViews(detailContainer, movieContainer, fragmentDetail, fragmentList, dualPane);
+        if(model.isSearching()){
+            searchLayout.setVisibility(VISIBLE);
+        }
+    }
+
+    @Override public void openSearchFragment(FrameLayout searchLayout) {
+        model.setSearching(true);
+        searchLayout.setVisibility(VISIBLE);
+    }
+
+    @Override public boolean closeSearchFragment(FrameLayout searchLayout, SearchView searchView) {
+        model.setSearching(false);
+        searchView.onActionViewCollapsed();
+        searchLayout.setVisibility(GONE);
+        return true;
+    }
+
+    @Override public void performSearchQuery(String query) {
+        if(isValidSearch(query)) {
+            model.performMovieSearch(query);
+        }
+    }
+
+    private boolean isValidSearch(String query) {
+        return query != null && query.length() > 1 && query.matches(".*[a-zA-Z0-9]+.*");
     }
 
     private void setupSearchFragment(@IdRes int searchContainer, MovieFragmentSearchView fragmentSearch) {

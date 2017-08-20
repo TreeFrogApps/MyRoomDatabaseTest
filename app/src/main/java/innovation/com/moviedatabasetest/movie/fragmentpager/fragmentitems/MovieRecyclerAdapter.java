@@ -26,14 +26,14 @@ public final class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecycl
     private final PublishSubject<Movie> updateSubject;
     private final PublishSubject<Movie> openMovieSubject;
 
-    MovieRecyclerAdapter(List<Movie> movieList) {
+    public MovieRecyclerAdapter(List<Movie> movieList) {
         this.movieList = movieList;
         updateSubject = PublishSubject.create();
         openMovieSubject = PublishSubject.create();
 
     }
 
-    Observable<Movie> updateFavouriteObservable(){
+    public Observable<Movie> updateFavouriteObservable(){
         return updateSubject;
     }
 

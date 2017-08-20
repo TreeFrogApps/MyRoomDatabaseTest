@@ -2,8 +2,6 @@ package innovation.com.moviedatabasetest.base;
 
 import android.support.v7.app.AppCompatActivity;
 
-import butterknife.Unbinder;
-
 
 public abstract class GenericActivity<IView, Presenter extends IPresenterLifeCycle<IView>, Component> extends AppCompatActivity {
 
@@ -19,7 +17,6 @@ public abstract class GenericActivity<IView, Presenter extends IPresenterLifeCyc
             presenter.unbind(isChangingConfigurations);
         }
     }
-
 
     public abstract Component getComponent();
 }

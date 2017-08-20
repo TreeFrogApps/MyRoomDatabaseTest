@@ -70,13 +70,17 @@ import static java.util.concurrent.TimeUnit.DAYS;
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<List<Movie>> performMovieSearch(String query) {
-        return dBManager.searchByMovieName(query)
+    public Flowable<List<Movie>> performMovieSearch(String query) {
+        return apiManager.searchForMovies(query)
                 .subscribeOn(Schedulers.io());
     }
 
     public void updateMovie(Movie movie) {
         dBManager.updateMovies(Collections.singletonList(movie));
+    }
+
+    public void insertMovie(Movie movie){
+        dBManager.insert(movie);
     }
 
     private Flowable<List<Movie>> updateInCinemas() {

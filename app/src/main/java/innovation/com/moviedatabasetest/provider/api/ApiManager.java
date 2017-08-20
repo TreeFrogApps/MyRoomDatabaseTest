@@ -30,10 +30,11 @@ import static java.util.concurrent.TimeUnit.DAYS;
         final long now = System.currentTimeMillis();
         final String fromDate = dateProvider.formatDate(now, FOUR_WEEKS);
         final String toDate = dateProvider.formatDate(now, 0);
-        return Flowable.defer(() -> getInCinemas(fromDate, toDate, 1)
-                .subscribeOn(Schedulers.io())
-                .collect(ArrayList<Movie>::new, (movies, apiBase) -> movies.addAll(apiBase.getMovieList()))
-                .toFlowable());
+        return Flowable.defer(() ->
+                getInCinemas(fromDate, toDate, 1)
+                        .subscribeOn(Schedulers.io())
+                        .collect(ArrayList<Movie>::new, (movies, apiBase) -> movies.addAll(apiBase.getMovieList()))
+                        .toFlowable());
     }
 
     private Flowable<ApiBase> getInCinemas(String fromDate, String toDate, int page) {
@@ -44,10 +45,11 @@ import static java.util.concurrent.TimeUnit.DAYS;
     }
 
     public Flowable<List<Movie>> getPopularList() {
-        return Flowable.defer(() -> getPopular(1)
-                .subscribeOn(Schedulers.io())
-                .collect(ArrayList<Movie>::new, (movies, apiBase) -> movies.addAll(apiBase.getMovieList()))
-                .toFlowable());
+        return Flowable.defer(() ->
+                getPopular(1)
+                        .subscribeOn(Schedulers.io())
+                        .collect(ArrayList<Movie>::new, (movies, apiBase) -> movies.addAll(apiBase.getMovieList()))
+                        .toFlowable());
     }
 
     private Flowable<ApiBase> getPopular(int page) {
@@ -57,4 +59,18 @@ import static java.util.concurrent.TimeUnit.DAYS;
                         Flowable.just(apiBase));
     }
 
+    public Flowable<List<Movie>> searchForMovies(String query) {
+        return Flowable.defer(() ->
+                searchResults(1, query)
+                        .subscribeOn(Schedulers.io())
+                        .collect(ArrayList<Movie>::new, (movies, apiBase) -> movies.addAll(apiBase.getMovieList()))
+                        .toFlowable());
+    }
+
+    private Flowable<ApiBase> searchResults(int page, String query) {
+        return moviesApi.getSearchResults(query)
+                .concatMap(apiBase -> apiBase.hasNextPage() && page <= MAX_PAGE ?
+                        Flowable.just(apiBase).concatWith(searchResults(page + 1, query)) :
+                        Flowable.just(apiBase));
+    }
 }

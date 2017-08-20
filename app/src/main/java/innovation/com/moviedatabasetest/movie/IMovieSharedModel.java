@@ -18,9 +18,11 @@ public interface IMovieSharedModel {
 
     void performMovieSearch(String query);
 
-    Flowable<List<Movie>> subscribeToSearchResults();
+    Observable<List<Movie>> subscribeToSearchResults();
 
     void updateMovie(Movie movie);
+
+    void insertMovie(Movie movie);
 
     Observable<Movie> subscribeDetailMovie();
 
@@ -30,4 +32,7 @@ public interface IMovieSharedModel {
 
     boolean isDualPane();
 
+    boolean isSearching();
+
+    void setSearching(boolean isSearching);
 }

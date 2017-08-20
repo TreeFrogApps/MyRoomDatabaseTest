@@ -2,24 +2,31 @@ package innovation.com.moviedatabasetest.movie.fragmentsearch;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import innovation.com.moviedatabasetest.R;
 import innovation.com.moviedatabasetest.base.GenericFragment;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentSearchModule;
 import innovation.com.moviedatabasetest.movie.MovieActivity;
+import innovation.com.moviedatabasetest.provider.db.Movie;
 
 
 public class MovieFragmentSearchView extends GenericFragment<IMovieFragmentSearchView, IMovieFragmentSearchPresenter> implements IMovieFragmentSearchView {
 
+    @BindView(R.id.searchRecyclerView) RecyclerView resultsRecyclerView;
     @Inject IMovieFragmentSearchPresenter presenter;
+
+    private List<Movie> resultsList;
 
     public MovieFragmentSearchView() {
     }
@@ -40,10 +47,16 @@ public class MovieFragmentSearchView extends GenericFragment<IMovieFragmentSearc
     @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MovieActivity) getActivity()).getComponent().addFragmentSearchComponent(new MovieFragmentSearchModule()).inject(this);
+        resultsList = new ArrayList<>();
         bind(this, presenter, ButterKnife.bind(this, getView()));
+        presenter.setupView(resultsRecyclerView, resultsList, getActivity());
+        presenter.subscribeToSearchEvents();
     }
 
-    @Override public void searchResults(List<Object> results) {
-
+    @Override public void searchResults(List<Movie> results) {
+        resultsList.clear();
+        resultsList.addAll(results);
+        resultsRecyclerView.getAdapter().notifyDataSetChanged();
+        // TODO - create / update recyclerview
     }
 }

@@ -18,9 +18,7 @@ public interface MoviesApi {
     @Headers("Accept: application/json")
     Flowable<ApiBase> getPopularList(@Query("page") String page);
 
-    @GET("search/movie")
+    @GET("search/movie?region=GB")
     @Headers("Accept: application/json")
     Flowable<ApiBase> getSearchResults(@Query("query") String searchQuery);
-
-
 }
