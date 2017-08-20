@@ -111,7 +111,7 @@ import static java.util.concurrent.TimeUnit.DAYS;
     private void onError(Throwable e) {
         String message = "Error getting movies from Api";
         if(e instanceof HttpException){
-            message.concat( " - Http Code : " + ((HttpException) e).code());
+            message += " - Http Code : " + ((HttpException) e).code();
         }
         Log.e(TAG, message);
     }

@@ -12,7 +12,7 @@ import java.util.List;
 import butterknife.Unbinder;
 import innovation.com.moviedatabasetest.base.GenericPresenter;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
-import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.MovieRecyclerAdapter;
+import innovation.com.moviedatabasetest.common.MovieRecyclerAdapter;
 import innovation.com.moviedatabasetest.provider.db.Movie;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

@@ -1,4 +1,4 @@
-package innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems;
+package innovation.com.moviedatabasetest.common;
 
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -30,14 +30,13 @@ public final class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecycl
         this.movieList = movieList;
         updateSubject = PublishSubject.create();
         openMovieSubject = PublishSubject.create();
-
     }
 
     public Observable<Movie> updateFavouriteObservable(){
         return updateSubject;
     }
 
-    Observable<Movie> movieClickedObservable(){
+    public Observable<Movie> movieClickedObservable(){
         return openMovieSubject;
     }
 

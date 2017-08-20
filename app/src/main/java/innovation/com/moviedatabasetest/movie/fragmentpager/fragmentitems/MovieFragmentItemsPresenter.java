@@ -12,6 +12,7 @@ import java.util.List;
 import butterknife.Unbinder;
 import innovation.com.moviedatabasetest.R;
 import innovation.com.moviedatabasetest.base.GenericPresenter;
+import innovation.com.moviedatabasetest.common.MovieRecyclerAdapter;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import innovation.com.moviedatabasetest.movie.fragmentdetail.MovieFragmentDetailView;
 import innovation.com.moviedatabasetest.provider.db.Movie;

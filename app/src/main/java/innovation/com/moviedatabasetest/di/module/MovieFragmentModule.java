@@ -14,7 +14,6 @@ import innovation.com.moviedatabasetest.movie.fragmentpager.MovieFragmentPresent
 import innovation.com.moviedatabasetest.movie.fragmentpager.MoviePagerAdapter;
 import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.IMovieFragmentItemsPresenter;
 import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.MovieFragmentItemsPresenter;
-import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.MovieRecyclerAdapter;
 
 @Module public class MovieFragmentModule {
 

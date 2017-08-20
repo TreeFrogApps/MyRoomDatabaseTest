@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import innovation.com.moviedatabasetest.R;
 import innovation.com.moviedatabasetest.base.GenericFragment;
+import innovation.com.moviedatabasetest.common.MovieRecyclerAdapter;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentModule;
 import innovation.com.moviedatabasetest.movie.MovieActivity;
 import innovation.com.moviedatabasetest.provider.db.Movie;
