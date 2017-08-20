@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import innovation.com.moviedatabasetest.R;
 import innovation.com.moviedatabasetest.base.GenericFragment;
+import innovation.com.moviedatabasetest.common.MovieRecyclerAdapter;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentSearchModule;
 import innovation.com.moviedatabasetest.movie.MovieActivity;
 import innovation.com.moviedatabasetest.provider.db.Movie;
@@ -27,6 +28,7 @@ public class MovieFragmentSearchView extends GenericFragment<IMovieFragmentSearc
     @Inject IMovieFragmentSearchPresenter presenter;
 
     private List<Movie> resultsList;
+    private MovieRecyclerAdapter movieRecyclerAdapter;
 
     public MovieFragmentSearchView() {
     }
@@ -48,14 +50,17 @@ public class MovieFragmentSearchView extends GenericFragment<IMovieFragmentSearc
         super.onActivityCreated(savedInstanceState);
         ((MovieActivity) getActivity()).getComponent().addFragmentSearchComponent(new MovieFragmentSearchModule()).inject(this);
         resultsList = new ArrayList<>();
+        movieRecyclerAdapter = new MovieRecyclerAdapter(resultsList);
         bind(this, presenter, ButterKnife.bind(this, getView()));
-        presenter.setupView(resultsRecyclerView, resultsList, getActivity());
+        presenter.setupView(resultsRecyclerView, movieRecyclerAdapter, getActivity());
         presenter.subscribeToSearchEvents();
     }
 
-    @Override public void searchResults(List<Movie> results) {
+    @Override public void searchResults(List<Movie> results, String searchText) {
         resultsList.clear();
         resultsList.addAll(results);
-        resultsRecyclerView.getAdapter().notifyDataSetChanged();
+        final int color = 0xFF428B38;
+        movieRecyclerAdapter.setSubText(searchText, color);
+        movieRecyclerAdapter.notifyDataSetChanged();
     }
 }

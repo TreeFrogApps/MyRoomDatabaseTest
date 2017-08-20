@@ -18,11 +18,11 @@ public class MovieApp extends Application {
         movieAppComponent = createComponent();
     }
 
-    protected MovieAppComponent createComponent(){
+    protected MovieAppComponent createComponent() {
         return DaggerMovieAppComponent.builder().movieAppModule(new MovieAppModule(this)).build();
     }
 
-    public static MovieAppComponent getRoomAppComponent(Context context){
+    public static MovieAppComponent getRoomAppComponent(Context context) {
         return ((MovieApp) context.getApplicationContext()).movieAppComponent;
     }
 }

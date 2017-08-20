@@ -2,12 +2,12 @@ package innovation.com.moviedatabasetest.di.component;
 
 
 import dagger.Subcomponent;
+import innovation.com.moviedatabasetest.di.module.MovieActivityModule;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentDetailModule;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentModule;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentSearchModule;
-import innovation.com.moviedatabasetest.movie.MovieActivity;
-import innovation.com.moviedatabasetest.di.module.MovieActivityModule;
 import innovation.com.moviedatabasetest.di.scope.ActivityScope;
+import innovation.com.moviedatabasetest.movie.MovieActivity;
 
 @ActivityScope
 @Subcomponent(modules = MovieActivityModule.class)

@@ -66,7 +66,7 @@ public class Movie {
     @ColumnInfo(name = MOVIE_TYPE)
     public String movieType;
 
-    public String getAppendedPosterPath(){
+    public String getAppendedPosterPath() {
         return POSTER_BASE_URL + posterPath;
     }
 

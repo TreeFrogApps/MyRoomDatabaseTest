@@ -20,6 +20,8 @@ public interface IMovieSharedModel {
 
     Observable<List<Movie>> subscribeToSearchResults();
 
+    String getSearchText();
+
     void updateMovie(Movie movie);
 
     void insertMovie(Movie movie);

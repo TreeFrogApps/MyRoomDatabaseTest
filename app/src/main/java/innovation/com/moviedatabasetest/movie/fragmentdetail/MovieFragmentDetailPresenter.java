@@ -32,7 +32,7 @@ public class MovieFragmentDetailPresenter extends GenericPresenter<IMovieSharedM
     }
 
     @Override public void unbind(boolean isChangingConfigurations) {
-        if(disposable != null && !disposable.isDisposed()) disposable.dispose();
+        if (disposable != null && !disposable.isDisposed()) disposable.dispose();
     }
 
     @Override public void unbindView() {
@@ -44,11 +44,11 @@ public class MovieFragmentDetailPresenter extends GenericPresenter<IMovieSharedM
                 .subscribe(this::updateView, this::onError);
     }
 
-    private void updateView(Movie movie){
+    private void updateView(Movie movie) {
         view.updateMovieDetails(movie);
     }
 
-    private void onError(Throwable e){
+    private void onError(Throwable e) {
         Log.e(TAG, "onError : " + e);
     }
 }

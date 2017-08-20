@@ -5,13 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Unbinder;
-import innovation.com.moviedatabasetest.base.GenericPresenter;
-import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
-import io.reactivex.Observable;
 
 public class MovieFragmentPresenter implements IMovieFragmentPresenter {
 
@@ -34,7 +28,7 @@ public class MovieFragmentPresenter implements IMovieFragmentPresenter {
     }
 
     @Override public void unbindView() {
-        if(unbinder != null){
+        if (unbinder != null) {
             unbinder.unbind();
         }
     }

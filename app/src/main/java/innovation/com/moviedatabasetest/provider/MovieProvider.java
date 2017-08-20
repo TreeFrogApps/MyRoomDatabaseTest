@@ -79,7 +79,7 @@ import static java.util.concurrent.TimeUnit.DAYS;
         dBManager.updateMovies(Collections.singletonList(movie));
     }
 
-    public void insertMovie(Movie movie){
+    public void insertMovie(Movie movie) {
         dBManager.insert(movie);
     }
 
@@ -110,7 +110,7 @@ import static java.util.concurrent.TimeUnit.DAYS;
 
     private void onError(Throwable e) {
         String message = "Error getting movies from Api";
-        if(e instanceof HttpException){
+        if (e instanceof HttpException) {
             message += " - Http Code : " + ((HttpException) e).code();
         }
         Log.e(TAG, message);

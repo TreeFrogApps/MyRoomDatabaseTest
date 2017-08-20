@@ -3,22 +3,19 @@ package innovation.com.moviedatabasetest.di.module;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import dagger.Module;
 import dagger.Provides;
+import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
 import innovation.com.moviedatabasetest.provider.api.DateProvider;
 import innovation.com.moviedatabasetest.provider.api.MoviesApi;
-import innovation.com.moviedatabasetest.di.scope.ApplicationScope;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -63,11 +60,11 @@ import static java.util.concurrent.TimeUnit.SECONDS;
                 .client(client).build();
     }
 
-    @Provides @ApplicationScope MoviesApi provideMoviesApi(Retrofit retrofit){
+    @Provides @ApplicationScope MoviesApi provideMoviesApi(Retrofit retrofit) {
         return retrofit.create(MoviesApi.class);
     }
 
-    @SuppressLint("SimpleDateFormat") @Provides @ApplicationScope DateProvider provideDate(){
+    @SuppressLint("SimpleDateFormat") @Provides @ApplicationScope DateProvider provideDate() {
         return (now, offset) -> new SimpleDateFormat("yyyy-MM-dd").format(new Date((now - offset)));
     }
 }

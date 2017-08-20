@@ -15,7 +15,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.PublishSubject;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -25,16 +24,17 @@ public class MovieSharedModel implements IMovieSharedModel {
     private final MovieProvider movieProvider;
     private final SharedPreferences preferences;
 
-    private PublishSubject<String> searchSubject;
+    private BehaviorSubject<String> searchSubject;
     private BehaviorSubject<Movie> detailMovieSubject;
     private boolean isDualPane;
     private boolean isSearching;
+    private String searchText;
 
     public MovieSharedModel(Context context, MovieProvider movieProvider, SharedPreferences preferences) {
         this.context = context;
         this.movieProvider = movieProvider;
         this.preferences = preferences;
-        searchSubject = PublishSubject.create();
+        searchSubject = BehaviorSubject.create();
         detailMovieSubject = BehaviorSubject.create();
     }
 
@@ -70,9 +70,14 @@ public class MovieSharedModel implements IMovieSharedModel {
     }
 
     @Override public Observable<List<Movie>> subscribeToSearchResults() {
-        return searchSubject.debounce(1000, MILLISECONDS)
+        return searchSubject.debounce(800, MILLISECONDS)
+                .doOnNext(s -> searchText = s)
                 .switchMap(s -> movieProvider.performMovieSearch(s).toObservable())
                 .subscribeOn(Schedulers.io());
+    }
+
+    @Override public synchronized String getSearchText() {
+        return searchText;
     }
 
     @Override public void updateMovie(Movie movie) {

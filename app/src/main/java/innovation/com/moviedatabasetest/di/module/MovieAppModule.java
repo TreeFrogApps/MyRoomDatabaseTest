@@ -31,11 +31,11 @@ public class MovieAppModule {
         return app;
     }
 
-    @Provides @ApplicationScope SharedPreferences providePreferences(Context context){
+    @Provides @ApplicationScope SharedPreferences providePreferences(Context context) {
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
-    @Provides @ApplicationScope Date provideDate(){
+    @Provides @ApplicationScope Date provideDate() {
         return System::currentTimeMillis;
     }
 
@@ -43,7 +43,7 @@ public class MovieAppModule {
         return new MovieSharedModel(context, movieProvider, preferences);
     }
 
-    @Provides @ApplicationScope Executor provideExecutor(){
+    @Provides @ApplicationScope Executor provideExecutor() {
         return Executors.newSingleThreadExecutor();
     }
 }

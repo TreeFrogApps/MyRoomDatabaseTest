@@ -9,21 +9,21 @@ public abstract class GenericFragment<IView, Presenter extends IPresenterLifeCyc
 
     private Presenter presenter;
 
-    protected void bind(IView view, Presenter presenter, Unbinder unbinder){
+    protected void bind(IView view, Presenter presenter, Unbinder unbinder) {
         this.presenter = presenter;
         presenter.bind(view, unbinder);
     }
 
     @Override public void onDestroyView() {
         super.onDestroyView();
-        if(presenter != null) {
+        if (presenter != null) {
             presenter.unbindView();
         }
     }
 
     @Override public void onDestroy() {
         super.onDestroy();
-        if(presenter != null) {
+        if (presenter != null) {
             presenter.unbind(getActivity().isChangingConfigurations());
         }
     }

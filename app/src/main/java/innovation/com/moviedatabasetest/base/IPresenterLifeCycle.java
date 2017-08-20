@@ -1,8 +1,6 @@
 package innovation.com.moviedatabasetest.base;
 
 
-import android.support.annotation.Nullable;
-
 import butterknife.Unbinder;
 
 public interface IPresenterLifeCycle<View> {

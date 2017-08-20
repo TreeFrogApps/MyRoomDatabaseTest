@@ -34,7 +34,8 @@ public class MovieFragmentDetailView extends GenericFragment<IMovieFragmentDetai
     @BindView(R.id.movieDetailReleaseDate) TextView releaseDate;
     @BindView(R.id.movieDetailImage) ImageView movieImage;
 
-    public MovieFragmentDetailView() {}
+    public MovieFragmentDetailView() {
+    }
 
     public static MovieFragmentDetailView newInstance(@Nullable Bundle args) {
         final MovieFragmentDetailView fragmentDetail = new MovieFragmentDetailView();
@@ -52,7 +53,7 @@ public class MovieFragmentDetailView extends GenericFragment<IMovieFragmentDetai
     @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MovieActivity) getActivity()).getComponent().addFragmentDetailComponent(new MovieFragmentDetailModule()).inject(this);
-        if(getArguments() != null) rowId = getArguments().getLong(DETAIL_FRAGMENT_ROW_ID_KEY, -1);
+        if (getArguments() != null) rowId = getArguments().getLong(DETAIL_FRAGMENT_ROW_ID_KEY, -1);
         bind(this, presenter, ButterKnife.bind(this, getView()));
         presenter.subscribeToUpdates();
     }

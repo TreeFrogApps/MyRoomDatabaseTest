@@ -18,6 +18,7 @@ import static innovation.com.moviedatabasetest.MovieApp.getRoomAppComponent;
 
 public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, MovieActivityComponent> implements IMovieView {
 
+    private static final String TAG = MovieActivity.class.getSimpleName();
     private MovieActivityComponent component;
     private SearchView searchView;
     @Inject IMoviePresenter presenter;
@@ -53,7 +54,7 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
 
             @Override public boolean onQueryTextChange(String newText) {
                 presenter.performSearchQuery(newText);
-                Log.e("SEARCH", "TEXT : " + newText);
+                Log.i(TAG, "Search Text : " + newText);
                 return true;
             }
         });
@@ -61,7 +62,7 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
     }
 
     @Override public void onBackPressed() {
-        if(presenter.backPressed()){
+        if (presenter.backPressed()) {
             presenter.closeSearchFragment(searchView);
         } else {
             super.onBackPressed();

@@ -8,10 +8,9 @@ import dagger.Module;
 import dagger.Provides;
 import innovation.com.moviedatabasetest.base.GenericActivity;
 import innovation.com.moviedatabasetest.di.scope.ActivityScope;
+import innovation.com.moviedatabasetest.movie.IMoviePresenter;
 import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import innovation.com.moviedatabasetest.movie.MoviePresenter;
-
-import innovation.com.moviedatabasetest.movie.IMoviePresenter;
 
 @Module public class MovieActivityModule {
 

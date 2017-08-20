@@ -2,7 +2,6 @@ package innovation.com.moviedatabasetest.movie.fragmentsearch;
 
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,8 +10,8 @@ import java.util.List;
 
 import butterknife.Unbinder;
 import innovation.com.moviedatabasetest.base.GenericPresenter;
-import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import innovation.com.moviedatabasetest.common.MovieRecyclerAdapter;
+import innovation.com.moviedatabasetest.movie.IMovieSharedModel;
 import innovation.com.moviedatabasetest.provider.db.Movie;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -23,15 +22,13 @@ public class MovieFragmentSearchPresenter extends GenericPresenter<IMovieSharedM
 
     private static final String TAG = MovieFragmentSearchPresenter.class.getSimpleName();
     private final IMovieSharedModel model;
-    private final FragmentManager manager;
 
     private IMovieFragmentSearchView view;
     private Unbinder unbinder;
     private CompositeDisposable searchDisposable;
 
-    public MovieFragmentSearchPresenter(IMovieSharedModel model, FragmentManager manager) {
+    public MovieFragmentSearchPresenter(IMovieSharedModel model) {
         this.model = model;
-        this.manager = manager;
         searchDisposable = new CompositeDisposable();
     }
 
@@ -56,8 +53,7 @@ public class MovieFragmentSearchPresenter extends GenericPresenter<IMovieSharedM
                 .subscribe(this::searchResults, this::onError));
     }
 
-    @Override public void setupView(RecyclerView resultsRecyclerView, List<Movie> resultsList, Context context) {
-        final MovieRecyclerAdapter adapter = new MovieRecyclerAdapter(resultsList);
+    @Override public void setupView(RecyclerView resultsRecyclerView, MovieRecyclerAdapter adapter, Context context) {
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         resultsRecyclerView.setAdapter(adapter);
 
@@ -67,7 +63,7 @@ public class MovieFragmentSearchPresenter extends GenericPresenter<IMovieSharedM
     }
 
     private void searchResults(List<Movie> movieList) {
-        view.searchResults(movieList);
+        view.searchResults(movieList, model.getSearchText());
     }
 
     private void onError(Throwable e) {

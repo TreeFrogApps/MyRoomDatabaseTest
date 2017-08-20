@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -18,7 +16,6 @@ import innovation.com.moviedatabasetest.R;
 import innovation.com.moviedatabasetest.base.GenericFragment;
 import innovation.com.moviedatabasetest.di.module.MovieFragmentModule;
 import innovation.com.moviedatabasetest.movie.MovieActivity;
-import innovation.com.moviedatabasetest.provider.db.Movie;
 
 
 public class MovieFragment extends GenericFragment<IMovieFragment, IMovieFragmentPresenter>

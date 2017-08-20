@@ -35,6 +35,12 @@
             android:weightSum="4">
 
             <FrameLayout
+                android:id="@+id/searchFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
+            <FrameLayout
                 android:id="@+id/movieFragmentContainer"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -47,12 +53,6 @@
                 android:layout_weight="2.5"/>
 
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/searchFragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

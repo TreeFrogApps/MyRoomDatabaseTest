@@ -31,7 +31,7 @@ import innovation.com.moviedatabasetest.movie.fragmentpager.fragmentitems.MovieF
         return new MovieFragmentItemsPresenter(model, manager);
     }
 
-    @Provides @FragmentScope MoviePagerAdapter providePagerAdapter(Context context){
+    @Provides @FragmentScope MoviePagerAdapter providePagerAdapter(Context context) {
         return new MoviePagerAdapter(context, fragment.getChildFragmentManager());
     }
 }

@@ -25,7 +25,7 @@ import static innovation.com.moviedatabasetest.provider.db.Movie.TITLE;
     @Query("SELECT * FROM " + MOVIES_TABLE)
     Flowable<List<Movie>> getAll();
 
-    @Query("SELECT * FROM " + MOVIES_TABLE +  " " +
+    @Query("SELECT * FROM " + MOVIES_TABLE + " " +
             "WHERE " + ROW_ID + "=" +
             ":rowId")
     Single<Movie> getByRowId(long rowId);
@@ -36,12 +36,12 @@ import static innovation.com.moviedatabasetest.provider.db.Movie.TITLE;
             "COLLATE NOCASE")
     Single<List<Movie>> searchByMovieName(String query);
 
-    @Query("SELECT * FROM " + MOVIES_TABLE +  " " +
+    @Query("SELECT * FROM " + MOVIES_TABLE + " " +
             "WHERE " + MOVIE_TYPE + "=" +
             ":type")
     Flowable<List<Movie>> getByMovieType(String type);
 
-    @Query("SELECT * FROM " + MOVIES_TABLE +  " " +
+    @Query("SELECT * FROM " + MOVIES_TABLE + " " +
             "WHERE " + IS_FAVOURITE + "=" +
             ":isFavourite")
     Flowable<List<Movie>> getFavourites(int isFavourite);

@@ -54,7 +54,7 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
 
         setupSearchFragment(searchContainer, fragmentSearch);
         setupFragmentViews(detailContainer, movieContainer, fragmentDetail, fragmentList, dualPane);
-        if(model.isSearching()){
+        if (model.isSearching()) {
             searchLayout.setVisibility(VISIBLE);
         }
     }
@@ -72,7 +72,7 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
     }
 
     @Override public void performSearchQuery(String query) {
-        if(isValidSearch(query)) {
+        if (isValidSearch(query)) {
             model.performMovieSearch(query);
         }
     }

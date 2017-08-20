@@ -33,7 +33,7 @@ public final class ApiBase {
         return movieList;
     }
 
-    public boolean hasNextPage(){
+    public boolean hasNextPage() {
         return page < totalPages;
     }
 }

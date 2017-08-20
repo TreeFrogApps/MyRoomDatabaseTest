@@ -7,13 +7,13 @@ public abstract class GenericActivity<IView, Presenter extends IPresenterLifeCyc
 
     private Presenter presenter;
 
-    protected void bind(IView view, Presenter presenter){
+    protected void bind(IView view, Presenter presenter) {
         this.presenter = presenter;
         presenter.bind(view, null);
     }
 
     protected void unbind(boolean isChangingConfigurations) {
-        if(presenter != null) {
+        if (presenter != null) {
             presenter.unbind(isChangingConfigurations);
         }
     }
