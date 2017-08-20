@@ -5,7 +5,6 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import javax.inject.Inject;
@@ -20,6 +19,7 @@ import static innovation.com.moviedatabasetest.MovieApp.getRoomAppComponent;
 public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, MovieActivityComponent> implements IMovieView {
 
     private MovieActivityComponent component;
+    private SearchView searchView;
     @Inject IMoviePresenter presenter;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +36,15 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
                 R.id.searchFragmentContainer,
                 R.id.movieDetailContainer,
                 findViewById(R.id.movieDetailContainer) != null);
+
     }
 
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.movie_menu, menu);
-        final FrameLayout searchLayout = (FrameLayout) findViewById(R.id.searchFragmentContainer);
-        final SearchView searchView = ((SearchView) menu.findItem(R.id.menuSearch).getActionView());
-        searchView.setOnSearchClickListener(v -> presenter.openSearchFragment(searchLayout));
-        searchView.setOnCloseListener(() -> presenter.closeSearchFragment(searchLayout, searchView));
+        searchView = ((SearchView) menu.findItem(R.id.menuSearch).getActionView());
+        searchView.setOnSearchClickListener(v -> presenter.openSearchFragment());
+        searchView.setOnCloseListener(() -> presenter.closeSearchFragment(searchView));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override public boolean onQueryTextSubmit(String query) {
                 presenter.performSearchQuery(query);
@@ -60,10 +60,13 @@ public class MovieActivity extends GenericActivity<IMovieView, IMoviePresenter, 
         return true;
     }
 
-    @Override protected boolean onPrepareOptionsPanel(View view, Menu menu) {
-        return true;
+    @Override public void onBackPressed() {
+        if(presenter.backPressed()){
+            presenter.closeSearchFragment(searchView);
+        } else {
+            super.onBackPressed();
+        }
     }
-
 
     @Override protected void onDestroy() {
         super.onDestroy();

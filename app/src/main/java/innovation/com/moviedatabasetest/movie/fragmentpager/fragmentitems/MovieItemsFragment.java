@@ -58,9 +58,6 @@ public class MovieItemsFragment extends GenericFragment<IMovieFragmentItems, IMo
         presenter.setupView(getActivity(), recyclerView, recyclerAdapter, id);
     }
 
-    // TODO - hook into api and database - presenter.bind
-    // TODO - complete rxchain / chains in MovieProvider
-    // TODO - implement search fragment .... connect to api - insert/update adding as favourite to favourites?
     @Override public void movieList(List<Movie> movies) {
         movieList.clear();
         movieList.addAll(movies);

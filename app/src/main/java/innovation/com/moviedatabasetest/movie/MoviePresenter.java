@@ -22,9 +22,9 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
     private final Context context;
     private final IMovieSharedModel model;
     private final FragmentManager manager;
+    private FrameLayout searchFrameLayout;
 
     @Nullable private Unbinder unbinder;
-    private boolean dualPane;
 
     public MoviePresenter(Context context, IMovieSharedModel model, FragmentManager manager) {
         this.context = context;
@@ -47,6 +47,7 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
 
     @Override public void setupView(FrameLayout searchLayout, @IdRes int movieContainer, @IdRes int searchContainer, @IdRes int detailContainer, boolean dualPane) {
         model.setDualPane(dualPane);
+        this.searchFrameLayout = searchLayout;
         final MovieFragmentSearchView fragmentSearch = (MovieFragmentSearchView) manager.findFragmentByTag(MovieFragmentSearchView.class.getSimpleName());
         final MovieFragment fragmentList = (MovieFragment) manager.findFragmentByTag(MovieFragment.class.getSimpleName());
         final MovieFragmentDetailView fragmentDetail = (MovieFragmentDetailView) manager.findFragmentByTag(MovieFragmentDetailView.class.getSimpleName());
@@ -58,15 +59,15 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
         }
     }
 
-    @Override public void openSearchFragment(FrameLayout searchLayout) {
+    @Override public void openSearchFragment() {
         model.setSearching(true);
-        searchLayout.setVisibility(VISIBLE);
+        searchFrameLayout.setVisibility(VISIBLE);
     }
 
-    @Override public boolean closeSearchFragment(FrameLayout searchLayout, SearchView searchView) {
+    @Override public boolean closeSearchFragment(SearchView searchView) {
         model.setSearching(false);
         searchView.onActionViewCollapsed();
-        searchLayout.setVisibility(GONE);
+        searchFrameLayout.setVisibility(GONE);
         return true;
     }
 
@@ -74,6 +75,10 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
         if(isValidSearch(query)) {
             model.performMovieSearch(query);
         }
+    }
+
+    @Override public boolean backPressed() {
+        return searchFrameLayout.getVisibility() == VISIBLE;
     }
 
     private boolean isValidSearch(String query) {
@@ -109,7 +114,4 @@ public class MoviePresenter extends GenericPresenter<IMovieSharedModel> implemen
             }
         }
     }
-
-
-    // TODO - on click in single pane (observe events from common model) - replace with detail fragment, addTransaction to back stack ...
 }

@@ -11,9 +11,11 @@ public interface IMoviePresenter extends IPresenterLifeCycle<IMovieView> {
 
     void setupView(FrameLayout searchLayout, @IdRes int movieContainer, @IdRes int searchContainer, @IdRes int detailContainer, boolean dualPane);
 
-    void openSearchFragment(FrameLayout frameLayout);
+    void openSearchFragment();
 
-    boolean closeSearchFragment(FrameLayout frameLayout, SearchView searchView);
+    boolean closeSearchFragment(SearchView searchView);
 
     void performSearchQuery(String query);
+
+    boolean backPressed();
 }

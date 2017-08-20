@@ -57,6 +57,5 @@ public class MovieFragmentSearchView extends GenericFragment<IMovieFragmentSearc
         resultsList.clear();
         resultsList.addAll(results);
         resultsRecyclerView.getAdapter().notifyDataSetChanged();
-        // TODO - create / update recyclerview
     }
 }
