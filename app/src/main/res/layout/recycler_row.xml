@@ -48,8 +48,8 @@
                 android:id="@+id/recyclerRowMenuButton"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="@drawable/dots_selector"
+                android:background="@drawable/dots_selector"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_marginRight="@dimen/horizontal_vertical_margin"
                 tools:ignore="RtlHardcoded"/>
 

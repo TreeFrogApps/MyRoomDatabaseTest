@@ -59,7 +59,7 @@ public class MovieFragmentSearchView extends GenericFragment<IMovieFragmentSearc
     @Override public void searchResults(List<Movie> results, String searchText) {
         resultsList.clear();
         resultsList.addAll(results);
-        final int color = 0xFF428B38;
+        final int color = 0xFFFF4081;
         movieRecyclerAdapter.setSubText(searchText, color);
         movieRecyclerAdapter.notifyDataSetChanged();
     }
